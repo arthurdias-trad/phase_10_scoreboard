@@ -1,6 +1,6 @@
 from datetime import date
 
-def score():
+def score_track():
     
     # Initialize variables to keep track of phase, round, score and winner
     player_one_phase = 1
@@ -82,4 +82,4 @@ def score():
     return 0
 
 if __name__ == "__main__":
-    score()
+    score_track()
