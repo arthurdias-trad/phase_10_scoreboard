@@ -51,7 +51,7 @@ def score_track():
         print("Round: {}".format(str(current_round)))
             # Advance player one phase
         print("{} is on Phase {}. Current score: {}".format(player_one, str(player_one_phase), str(player_one_score)))
-        print("{} is on Phase {}. Current score: {}".format(player_one, str(player_two_phase), str(player_two_score)))
+        print("{} is on Phase {}. Current score: {}".format(player_two, str(player_two_phase), str(player_two_score)))
         print()
 
         # Update round
