@@ -34,11 +34,7 @@ def score_track():
             player_one_phase += 1
             
             # Add player two score
-            p2_1_9 = int(input("Player 2, enter number of 1-9 cards: "))
-            p2_10_12 = int(input("Player 2, enter number of 10-12 cards: "))
-            p2_skip = int(input("Player 2, enter number of Skip cards: "))
-            p2_wild = int(input("Player 2, enter number of Wild cards: "))
-            player_two_score += ((p2_1_9 * 5) + (p2_10_12 * 10) + (p2_skip * 15) + (p2_wild * 25))
+            player_two_score += score_calc("2")
 
         # If player two wins the phase
         else:
@@ -47,11 +43,7 @@ def score_track():
             player_two_phase += 1
 
             # Add player one score
-            p1_1_9 = int(input("Player 2, enter number of 1-9 cards: "))
-            p1_10_12 = int(input("Player 2, enter number of 10-12 cards: "))
-            p1_skip = int(input("Player 2, enter number of Skip cards: "))
-            p1_wild = int(input("Player 2, enter number of Wild cards: "))
-            player_one_score += ((p1_1_9 * 5) + (p1_10_12 * 10) + (p1_skip * 15) + (p1_wild * 25))
+            player_one_score += score_calc("1")
         
         # Print current round and scores
         print()
@@ -80,6 +72,13 @@ def score_track():
     score.close()
     print(result)
     return 0
+
+def score_calc(player_number):
+    a1_9 = int(input("Player {}, enter number of 1-9 cards: ".format(player_number)))
+    a10_12 = int(input("Player {}, enter number of 10-12 cards: ".format(player_number)))
+    a_skip = int(input("Player {}, enter number of Skip cards: ".format(player_number)))
+    a_wild = int(input("Player {}, enter number of Wild cards: ".format(player_number)))
+    return ((a1_9 * 5) + (a10_12 * 10) + (a_skip * 15) + (a_wild * 25))
 
 if __name__ == "__main__":
     score_track()
