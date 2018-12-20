@@ -30,7 +30,6 @@ def score_track():
         # If player one wins the phase
         if phase_end == "1":
 
-            # Advance player one phase
             player_one_phase += 1
             
             # Add player two score
@@ -48,6 +47,7 @@ def score_track():
         # Print current round and scores
         print()
         print("Round: {}".format(str(current_round)))
+            # Advance player one phase
         print("Player 1 is on Phase {}. Current score: {}".format(str(player_one_phase), str(player_one_score)))
         print("Player 2 is on Phase {}. Current score: {}".format(str(player_two_phase), str(player_two_score)))
         print()
