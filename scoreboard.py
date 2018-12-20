@@ -7,13 +7,15 @@ def score_track():
     player_two_phase = 1
     player_one_score = 0
     player_two_score = 0
+    player_one = input("Player 1, enter your name: ")
+    player_two = input("Player 2, enter your name: ")
     current_round = 1
     winner = ""
     ender = ""
     today = date.today()
 
-    # Create score file
-    score = open("score.txt", "a+")
+    # Create score logs file
+    score_logs = open("score_logs.txt", "a+")
 
     # Control to loop while neither player has finished phase 10
     while player_one_phase <= 10 and player_two_phase <= 10:
@@ -48,28 +50,28 @@ def score_track():
         print()
         print("Round: {}".format(str(current_round)))
             # Advance player one phase
-        print("Player 1 is on Phase {}. Current score: {}".format(str(player_one_phase), str(player_one_score)))
-        print("Player 2 is on Phase {}. Current score: {}".format(str(player_two_phase), str(player_two_score)))
+        print("{} is on Phase {}. Current score: {}".format(player_one, str(player_one_phase), str(player_one_score)))
+        print("{} is on Phase {}. Current score: {}".format(player_one, str(player_two_phase), str(player_two_score)))
         print()
 
         # Update round
         current_round += 1
 
     if player_one_score < player_two_score:
-        winner = "Player 1"
+        winner = player_one
     else:
-        winner = "Player 2"
+        winner = player_two
 
     if player_one_phase > 10:
-        ender = "Player 1"
+        ender = player_one
     else:
-        ender = "Player 2"
+        ender = player_two
     
-    result = ("{} wins! {} ended the game by completing Phase 10. The game ended on Round {}. Player 1 scored {}. Player 2 scored {}".format(winner, ender, str(current_round), str(player_one_score), str(player_two_score)))
-    score.write("Game played on " + today.strftime("%m/%d/%Y") + "\n")
-    score.write(result + "\n")
-    score.write("---------------------------------------------------------------\n\n")
-    score.close()
+    result = ("{} wins! {} ended the game by completing Phase 10. The game ended on Round {}. {} scored {}. {} scored {}".format(winner, ender, str(current_round), player_one, str(player_one_score), player_two, str(player_two_score)))
+    score_logs.write("Game played on " + today.strftime("%m/%d/%Y") + "\n")
+    score_logs.write(result + "\n")
+    score_logs.write("---------------------------------------------------------------\n\n")
+    score_logs.close()
     print(result)
     return 0
 
