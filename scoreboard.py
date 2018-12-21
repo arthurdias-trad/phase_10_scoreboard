@@ -20,6 +20,10 @@ def score_track():
     # Control to loop while neither player has finished phase 10
     while player_one_phase <= 10 and player_two_phase <= 10:
         
+        # Check who got their phase
+        player_one_phase = phase_check(player_one, player_one_phase)
+        player_two_phase = phase_check(player_two, player_two_phase)
+
         # Check phase winner
         phase_end = input("Enter who won the phase - 1 or 2: ")
         
@@ -32,17 +36,11 @@ def score_track():
         # If player one wins the phase
         if phase_end == "1":
             
-            # Advance player one phase
-            player_one_phase += 1
-            
             # Add player two score
             player_two_score += score_calc("2")
 
         # If player two wins the phase
         else:
-
-            # Advance player two phase
-            player_two_phase += 1
 
             # Add player one score
             player_one_score += score_calc("1")
@@ -74,6 +72,19 @@ def score_track():
     score_logs.close()
     print(result)
     return 0
+
+def phase_check(player, phase):
+    p1_phase = input("{}, did you get your phase? ".format(player))
+    while p1_phase == "" or (p1_phase[0].lower() != "y" and p1_phase[0].lower() != "n"):
+        print("Invalid input - please answer yes or no.")
+        p1_phase = input("{}, did you get your phase? ".format(player))
+
+    if p1_phase[0].lower() == "y":
+        phase += 1
+        return phase
+    else:
+        return phase
+        
 
 def score_calc(player_number):
     a1_9 = int(input("Player {}, enter number of 1-9 cards: ".format(player_number)))
