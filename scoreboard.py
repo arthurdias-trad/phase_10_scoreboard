@@ -121,14 +121,6 @@ def score_calc(player_number):
 
     return ((a1_9 * 5) + (a10_12 * 10) + (a_skip * 15) + (a_wild * 25))
 
-def score_print():
-    # Print current round and scores
-    print()
-    print("Round: {}".format(str(current_round)))
-    print("{} is on Phase {}. Current score: {}".format(player_one, str(player_one_phase), str(player_one_score)))
-    print("{} is on Phase {}. Current score: {}".format(player_two, str(player_two_phase), str(player_two_score)))
-    print()
-    return 0
 
 if __name__ == "__main__":
     score_track()
