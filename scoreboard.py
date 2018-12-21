@@ -9,6 +9,10 @@ def score_track():
     player_two_score = 0
     player_one = input("Player 1, enter your name: ")
     player_two = input("Player 2, enter your name: ")
+    if player_one == "":
+        player_one = "Player 1"
+    if player_two == "":
+        player_two = "Player 2"
     current_round = 1
     winner = ""
     ender = ""
@@ -25,12 +29,12 @@ def score_track():
         player_two_phase = phase_check(player_two, player_two_phase)
 
         # Check phase winner
-        phase_end = input("Enter who won the phase - 1 or 2: ")
+        phase_end = input("Enter who won the round - 1 or 2: ")
         
         # Validate input
         while phase_end != "1" and phase_end != "2":
             print("Invalid input.")
-            phase_end = input("Enter who won the phase - 1 or 2: ")
+            phase_end = input("Enter who won the round - 1 or 2: ")
         
         
         # If player one wins the phase
@@ -87,11 +91,44 @@ def phase_check(player, phase):
         
 
 def score_calc(player_number):
-    a1_9 = int(input("Player {}, enter number of 1-9 cards: ".format(player_number)))
-    a10_12 = int(input("Player {}, enter number of 10-12 cards: ".format(player_number)))
-    a_skip = int(input("Player {}, enter number of Skip cards: ".format(player_number)))
-    a_wild = int(input("Player {}, enter number of Wild cards: ".format(player_number)))
+    while True:
+        try:
+            a1_9 = int(input("Player {}, enter number of 1-9 cards: ".format(player_number)))
+            break
+        except:
+            print("Invalid Input - enter an integer")
+    
+    while True:
+        try:
+            a10_12 = int(input("Player {}, enter number of 10-12 cards: ".format(player_number)))
+            break
+        except:
+            print("Invalid Input - enter an integer")
+    
+    while True:
+        try:
+            a_skip = int(input("Player {}, enter number of Skip cards: ".format(player_number)))
+            break
+        except:
+            print("Invalid Input - enter an integer")
+    
+    while True:
+        try:
+            a_wild = int(input("Player {}, enter number of Wild cards: ".format(player_number)))
+            break
+        except:
+            print("Invalid Input - enter an integer")
+
     return ((a1_9 * 5) + (a10_12 * 10) + (a_skip * 15) + (a_wild * 25))
+
+def score_print():
+    # Print current round and scores
+    print()
+    print("Round: {}".format(str(current_round)))
+    print("{} is on Phase {}. Current score: {}".format(player_one, str(player_one_phase), str(player_one_score)))
+    print("{} is on Phase {}. Current score: {}".format(player_two, str(player_two_phase), str(player_two_score)))
+    print()
+    return 0
 
 if __name__ == "__main__":
     score_track()
