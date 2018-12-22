@@ -70,7 +70,7 @@ def score_track():
         ender = player_two
     
     result = ("{} wins! {} ended the game by completing Phase 10. The game ended on Round {}. {} scored {}. {} scored {}".format(winner, ender, str(current_round), player_one, str(player_one_score), player_two, str(player_two_score)))
-    score_logs.write("Game played on " + today.strftime("%m/%d/%Y") + "\n")
+    score_logs.write("Game played on " + today.strftime("%m/%d/%Y") + "at" + today.strftime("%H:%M") + "\n")
     score_logs.write(result + "\n")
     score_logs.write("---------------------------------------------------------------\n\n")
     score_logs.close()
