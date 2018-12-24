@@ -41,13 +41,13 @@ def score_track():
         if phase_end == "1":
             
             # Add player two score
-            player_two_score += score_calc("2")
+            player_two_score += score_calc(player_two)
 
         # If player two wins the phase
         else:
 
             # Add player one score
-            player_one_score += score_calc("1")
+            player_one_score += score_calc(player_one)
         
         # Print current round and scores
         print()
@@ -70,9 +70,9 @@ def score_track():
         ender = player_two
     
     result = ("{} wins! {} ended the game by completing Phase 10. The game ended on Round {}. {} scored {}. {} scored {}".format(winner, ender, str(current_round), player_one, str(player_one_score), player_two, str(player_two_score)))
-    score_logs.write("Game played on " + today.strftime("%m/%d/%Y") + "at" + today.strftime("%H:%M") + "\n")
+    score_logs.write("Game played on " + today.strftime("%m/%d/%Y") + " at " + datetime.now().strftime("%H:%M") + "\n")
     score_logs.write(result + "\n")
-    score_logs.write("---------------------------------------------------------------\n\n")
+    score_logs.write("-"*len(result) + "\n\n")
     score_logs.close()
     print(result)
     return 0
@@ -90,31 +90,32 @@ def phase_check(player, phase):
         return phase
         
 
-def score_calc(player_number):
+def score_calc(player):
+    
     while True:
         try:
-            a1_9 = int(input("Player {}, enter number of 1-9 cards: ".format(player_number)))
+            a1_9 = int(input("{}, enter number of 1-9 cards: ".format(player)))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a10_12 = int(input("Player {}, enter number of 10-12 cards: ".format(player_number)))
+            a10_12 = int(input("{}, enter number of 10-12 cards: ".format(player)))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a_skip = int(input("Player {}, enter number of Skip cards: ".format(player_number)))
+            a_skip = int(input("{}, enter number of Skip cards: ".format(player)))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a_wild = int(input("Player {}, enter number of Wild cards: ".format(player_number)))
+            a_wild = int(input("{}, enter number of Wild cards: ".format(player)))
             break
         except:
             print("Invalid Input - enter an integer")
