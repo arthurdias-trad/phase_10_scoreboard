@@ -32,7 +32,7 @@ def score_track():
         phase_end = input("Enter who won the round - 1 or 2: ")
         
         # Validate input
-        while phase_end != "1" and phase_end != "2":
+        while phase_end not in ("1", "2"):
             print("Invalid input.")
             phase_end = input("Enter who won the round - 1 or 2: ")
         
@@ -78,12 +78,12 @@ def score_track():
     return 0
 
 def phase_check(player, phase):
-    p1_phase = input("{}, did you get your phase? ".format(player))
-    while p1_phase == "" or (p1_phase[0].lower() != "y" and p1_phase[0].lower() != "n"):
+    p_phase = input("{}, did you get your phase? ".format(player))
+    while p_phase == "" or (p_phase[0].lower() != "y" and p_phase[0].lower() != "n"):
         print("Invalid input - please answer yes or no.")
-        p1_phase = input("{}, did you get your phase? ".format(player))
+        p_phase = input("{}, did you get your phase? ".format(player))
 
-    if p1_phase[0].lower() == "y":
+    if p_phase[0].lower() == "y":
         phase += 1
         return phase
     else:
