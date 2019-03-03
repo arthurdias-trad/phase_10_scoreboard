@@ -1,93 +1,93 @@
-from datetime import date
+from datetime import date, datetime
 
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.score = 0
+        self.phase = 1
+
+    def __str__(self):
+        return f"{self.name} is on Phase {self.phase} with a score of {self.score}"
+
+    def next_phase(self):
+        self.phase += 1
+        return self.phase
+        
 def score_track():
     
-    # Initialize variables to keep track of phase, round, score and winner
-    player_one_phase = 1
-    player_two_phase = 1
-    player_one_score = 0
-    player_two_score = 0
-    player_one = input("Player 1, enter your name: ")
-    player_two = input("Player 2, enter your name: ")
-    if player_one == "":
-        player_one = "Player 1"
-    if player_two == "":
-        player_two = "Player 2"
-    current_round = 1
-    winner = ""
-    ender = ""
-    today = date.today()
+    round = 1
+    # Get number of players and create players' list
+    n = 0
+    while n < 2 or n > 6:
+        try:
+            n = int(input("Enter number of players (2 - 6): "))
+        except:
+            pass
+
+    players = []
+
+    for num in range(1, n + 1):
+        name = input(f"Player {num}, enter your name: ")
+        players.append(Player(name))
+
 
     # Create score logs file
     score_logs = open("score_logs.txt", "a+")
 
-    # Control to loop while neither player has finished phase 10
-    while player_one_phase <= 10 and player_two_phase <= 10:
+    # Control to loop while no player has reached phase 10
+    while all(player.phase < 10 for player in players):
         
+        for player in players:
         # Check who got their phase
-        player_one_phase = phase_check(player_one, player_one_phase)
-        player_two_phase = phase_check(player_two, player_two_phase)
+            phase_check(player)
 
-        # Check phase winner
-        phase_end = input("Enter who won the round - 1 or 2: ")
+        # Check round winner
+        round_end = int(input("Who won the round? "))
         
         # Validate input
-        while phase_end not in ("1", "2"):
+        while round_end < 1 or round_end > n:
             print("Invalid input.")
-            phase_end = input("Enter who won the round - 1 or 2: ")
-        
-        
-        # If player one wins the phase
-        if phase_end == "1":
-            
-            # Add player two score
-            player_two_score += score_calc(player_two)
-
-        # If player two wins the phase
-        else:
-
-            # Add player one score
-            player_one_score += score_calc(player_one)
-        
+            round_end = int(input("Who won the round? "))
+                
+        # Add scores, skipping player who won the round
+        for player in players:
+            if players.index(player) != (round_end - 1):
+                player.score += score_calc(player.name)
+              
         # Print current round and scores
         print()
-        print("Round: {}".format(str(current_round)))
-        print("{} is on Phase {}. Current score: {}".format(player_one, str(player_one_phase), str(player_one_score)))
-        print("{} is on Phase {}. Current score: {}".format(player_two, str(player_two_phase), str(player_two_score)))
+        print("Round: {}".format(str(round)))
+        for player in players:
+            print(player)
         print()
 
+        ender = players[round_end - 1].name
         # Update round
-        current_round += 1
+        round += 1
 
-    if player_one_score < player_two_score:
-        winner = player_one
-    else:
-        winner = player_two
-
-    if player_one_phase > 10:
-        ender = player_one
-    else:
-        ender = player_two
-    
-    result = ("{} wins! {} ended the game by completing Phase 10. The game ended on Round {}. {} scored {}. {} scored {}".format(winner, ender, str(current_round), player_one, str(player_one_score), player_two, str(player_two_score)))
-    score_logs.write("Game played on " + today.strftime("%m/%d/%Y") + " at " + datetime.now().strftime("%H:%M") + "\n")
+    # Find player with lower score and save as winner
+    players.sort(key = lambda player: player.score)
+    winner = players[0].name
+     
+    result = f"{winner} wins! {ender} ended the last round. The game ended on Round {round}."
+    score_logs.write("Game played on " + date.today().strftime("%m/%d/%Y") + " at " + datetime.now().strftime("%H:%M") + "\n")
     score_logs.write(result + "\n")
+    score_logs.write("Players: \n")
+    for player in players:
+        score_logs.write(f"{player.name}\n")
     score_logs.write("-"*len(result) + "\n\n")
     score_logs.close()
     print(result)
     return 0
 
-def phase_check(player, phase):
-    p_phase = input("{}, did you get your phase? ".format(player))
+def phase_check(player):
+    p_phase = input("{}, did you get your phase? ".format(player.name))
     while p_phase == "" or (p_phase[0].lower() != "y" and p_phase[0].lower() != "n"):
         print("Invalid input - please answer yes or no.")
-        p_phase = input("{}, did you get your phase? ".format(player))
+        p_phase = input("{}, did you get your phase? ".format(player.name))
 
     if p_phase[0].lower() == "y":
-        phase += 1
-        return phase
-    else:
-        return phase
+        player.next_phase()
         
 
 def score_calc(player):
@@ -125,3 +125,4 @@ def score_calc(player):
 
 if __name__ == "__main__":
     score_track()
+    input("Press any key to exit")
