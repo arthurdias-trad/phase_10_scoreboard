@@ -81,10 +81,10 @@ def score_track():
     return 0
 
 def phase_check(player):
-    p_phase = input("{}, did you get your phase? ".format(player.name))
+    p_phase = input(f"{player.name}, did you get your phase? ")
     while p_phase == "" or (p_phase[0].lower() != "y" and p_phase[0].lower() != "n"):
         print("Invalid input - please answer yes or no.")
-        p_phase = input("{}, did you get your phase? ".format(player.name))
+        p_phase = input(f"{player.name}, did you get your phase? ")
 
     if p_phase[0].lower() == "y":
         player.next_phase()
@@ -94,28 +94,28 @@ def score_calc(player):
     
     while True:
         try:
-            a1_9 = int(input("{}, enter number of 1-9 cards: ".format(player)))
+            a1_9 = int(input("f{player}, enter number of 1-9 cards: "))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a10_12 = int(input("{}, enter number of 10-12 cards: ".format(player)))
+            a10_12 = int(input("f{player}, enter number of 10-12 cards: "))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a_skip = int(input("{}, enter number of Skip cards: ".format(player)))
+            a_skip = int(input("f{player}, enter number of Skip cards: "))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a_wild = int(input("{}, enter number of Wild cards: ".format(player)))
+            a_wild = int(input(f"{player}, enter number of Wild cards: "))
             break
         except:
             print("Invalid Input - enter an integer")
