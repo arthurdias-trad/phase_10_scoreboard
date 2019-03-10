@@ -7,7 +7,10 @@ class Player:
         self.phase = 1
 
     def __str__(self):
-        return f"{self.name} is on Phase {self.phase} with a score of {self.score}"
+        if self.phase <= 10:
+            return f"{self.name} is on Phase {self.phase} with a score of {self.score}"
+        else:
+            return f"{self.name} completed Phase 10 with a score of {self.score}"
 
     def next_phase(self):
         self.phase += 1
@@ -15,7 +18,9 @@ class Player:
         
 def score_track():
     
+    # Initialize round variable
     round = 1
+
     # Get number of players and create players' list
     n = 0
     while n < 2 or n > 6:
@@ -35,33 +40,33 @@ def score_track():
     score_logs = open("score_logs.txt", "a+")
 
     # Control to loop while no player has reached phase 10
-    while all(player.phase < 10 for player in players):
+    while all(player.phase <= 10 for player in players):
         
         for player in players:
         # Check who got their phase
             phase_check(player)
 
         # Check round winner
-        round_end = int(input("Who won the round? "))
+        round_end = input("Who won the round? Enter player number: ")
         
         # Validate input
-        while round_end < 1 or round_end > n:
-            print("Invalid input.")
-            round_end = int(input("Who won the round? "))
+        while not round_end.isdigit() or int(round_end) < 1 or int(round_end) > n:
+            print("Invalid input. Enter player number.")
+            round_end = input("Who won the round? ")
                 
         # Add scores, skipping player who won the round
         for player in players:
-            if players.index(player) != (round_end - 1):
+            if players.index(player) != (int(round_end) - 1):
                 player.score += score_calc(player.name)
               
         # Print current round and scores
         print()
-        print("Round: {}".format(str(round)))
+        print(f"Round: {round}")
         for player in players:
             print(player)
         print()
 
-        ender = players[round_end - 1].name
+        ender = players[int(round_end) - 1].name
         # Update round
         round += 1
 
@@ -94,21 +99,21 @@ def score_calc(player):
     
     while True:
         try:
-            a1_9 = int(input("f{player}, enter number of 1-9 cards: "))
+            a1_9 = int(input(f"{player}, enter number of 1-9 cards: "))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a10_12 = int(input("f{player}, enter number of 10-12 cards: "))
+            a10_12 = int(input(f"{player}, enter number of 10-12 cards: "))
             break
         except:
             print("Invalid Input - enter an integer")
     
     while True:
         try:
-            a_skip = int(input("f{player}, enter number of Skip cards: "))
+            a_skip = int(input(f"{player}, enter number of Skip cards: "))
             break
         except:
             print("Invalid Input - enter an integer")
@@ -125,4 +130,4 @@ def score_calc(player):
 
 if __name__ == "__main__":
     score_track()
-    input("Press any key to exit")
+    input("Press enter to exit")
